@@ -1,4 +1,4 @@
-'tmux'. Ansible role to install (tmux).
+'tmux'. Ansible role to install tmux.
 
 Copyright © 2019-2022 Mathias Bocquet (mbocquet@sekoya.org)
 
