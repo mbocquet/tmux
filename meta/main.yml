@@ -1,6 +1,6 @@
 galaxy_info:
   author: Mathias BOCQUET
-  description: Ansible tmux role
+  description: Ansible role to install tmux
   company: Sekoya.org
 
   issue_tracker_url: https://git.sekoya.org/mb/tmux/issues
