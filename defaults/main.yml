@@ -1,0 +1,7 @@
+---
+# defaults file for tmux
+
+# tmux_state
+# Set tmux installation state. This is passed to ansible module package.
+# default to 'present'. Set to 'absent' to uninstall
+tmux_state: present
