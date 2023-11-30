@@ -1,6 +1,6 @@
 'tmux'. Ansible role to install tmux.
 
-Copyright © 2019-2022 Mathias Bocquet (mbocquet@sekoya.org)
+Copyright © 2019-2023 Mathias Bocquet (mbocquet@sekoya.org)
 
 This file is part of 'tmux' Ansible role.
 
