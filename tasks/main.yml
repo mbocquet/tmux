@@ -2,7 +2,7 @@
 # tasks file for tmux
 
 - name: package
-  package:
+  ansible.builtin.package:
     name: tmux
     state: "{{ tmux_state }}"
   tags:
