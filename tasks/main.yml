@@ -1,7 +1,7 @@
 ---
 # tasks file for tmux
 
-- name: package
+- name: Package
   ansible.builtin.package:
     name: tmux
     state: "{{ tmux_state }}"
