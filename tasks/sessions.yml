@@ -4,12 +4,18 @@
     src: tmux@.service
     dest: /etc/systemd/system/tmux@.service
     mode: "0664"
-  # useless here
-  # notify:
-  #   - Systemd reload
   tags:
     - systemd
     - unit
+
+- name: Systemd service stat
+  ansible.builtin.stat:
+    path: /etc/systemd/system/tmux@.service
+  register: gs
+  tags:
+    - systemd
+    - unit
+    - stat
 
 - name: Systemd variables file
   ansible.builtin.template:
@@ -22,15 +28,14 @@
     - variable
 
 - name: Tmux init script
-  ansible.builtin.copy:
-    src: tmux.{{ item.name }}.ini
+  ansible.builtin.template:
+    src: tmux.ini.j2
     dest: "{{ item.ini_file }}"
+    mode: "0664"
   loop: "{{ tmux_system_sessions }}"
   tags:
     - systemd
     - init
-
-# TODO # stat service files as in systemd role
 
 - name: Systemd service
   ansible.builtin.systemd:
@@ -39,6 +44,8 @@
     state: "{{ item.state | default('started') }}"
     daemon_reload: true
   loop: "{{ tmux_system_sessions }}"
+  when:
+    - gs.stat.exists
   tags:
     - systemd
     - service
