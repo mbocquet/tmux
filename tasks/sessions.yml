@@ -1,0 +1,44 @@
+---
+- name: Generic systemd unit
+  ansible.builtin.copy:
+    src: tmux@.service
+    dest: /etc/systemd/system/tmux@.service
+    mode: "0664"
+  # useless here
+  # notify:
+  #   - Systemd reload
+  tags:
+    - systemd
+    - unit
+
+- name: Systemd variables file
+  ansible.builtin.template:
+    src: tmux.session.j2
+    dest: /etc/default/tmux.{{ item.name }}
+    mode: "0664"
+  loop: "{{ tmux_system_sessions }}"
+  tags:
+    - systemd
+    - variable
+
+- name: Tmux init script
+  ansible.builtin.copy:
+    src: tmux.{{ item.name }}.ini
+    dest: "{{ item.ini_file }}"
+  loop: "{{ tmux_system_sessions }}"
+  tags:
+    - systemd
+    - init
+
+# TODO # stat service files as in systemd role
+
+- name: Systemd service
+  ansible.builtin.systemd:
+    name: tmux@{{ item.name }}
+    enabled: "{{ item.enabled | default(true) }}"
+    state: "{{ item.state | default('started') }}"
+    daemon_reload: true
+  loop: "{{ tmux_system_sessions }}"
+  tags:
+    - systemd
+    - service

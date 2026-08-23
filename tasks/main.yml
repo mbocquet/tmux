@@ -8,3 +8,12 @@
   tags:
     - tmux
     - package
+
+- name: Sessions
+  ansible.builtin.import_tasks: sessions.yml
+  when:
+    - tmux_system_sessions is defined
+    - tmux_system_sessions | length > 0
+  tags:
+    - tmux
+    - sessions
