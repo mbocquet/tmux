@@ -1,0 +1,14 @@
+[Unit]
+Description=Tmux session (%i)
+StartLimitIntervalSec=10
+StartLimitBurst=5
+
+[Service]
+EnvironmentFile=-/etc/default/tmux.%i
+Type=forking
+ExecStart=/usr/bin/tmux new-session -s %i -c $path -d \; source-file $ini_file
+Restart=on-success
+RestartSec=1s
+
+[Install]
+WantedBy=default.target
