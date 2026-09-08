@@ -7,8 +7,8 @@ StartLimitBurst=5
 EnvironmentFile=-/etc/default/tmux.%i
 Type=forking
 ExecStart=/usr/bin/tmux new-session -s %i -c $path -d \; source-file $ini_file
-Restart=on-success
-RestartSec=1s
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=default.target
